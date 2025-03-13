@@ -81,7 +81,7 @@ def main(cfg):
     if not model_path.exists(): model_path = Path(cfg['SAVE_DIR']) / f"{cfg['MODEL']['NAME']}_{cfg['MODEL']['BACKBONE']}_{cfg['DATASET']['NAME']}.pth"
     print(f"Evaluating {model_path}...")
 
-    model = eval(cfg['MODEL']['NAME'])(cfg['MODEL']['BACKBONE'], dataset.n_classes)
+    model = eval(cfg['MODEL']['NAME'])(cfg['MODEL']['BACKBONE'], 150)
     model.load_state_dict(torch.load(str(model_path), map_location='cpu'))
     model = model.to(device)
 

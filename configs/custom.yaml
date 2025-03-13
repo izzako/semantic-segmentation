@@ -2,19 +2,19 @@ DEVICE          : cuda              # device used for training and evaluation (c
 SAVE_DIR        : 'output'         # output folder name used for saving the model, logs and inference results
 
 MODEL:                                    
-  NAME          : DDRNet                                           # name of the model you are using
-  BACKBONE      : DDRNet-23slim                                                 # model variant
-  PRETRAINED    : 'checkpoints/backbones/ddrnet/ddrnet_23slim.pth'              # backbone model's weight 
+  NAME          : SegFormer                                           # name of the model you are using
+  BACKBONE      : MiT-B3                                                 # model variant
+  PRETRAINED    : 'checkpoints/pretrained/segformer/segformer.b3.ade.pth'           # backbone model's weight 
 
 DATASET:
   NAME          : CityScapes                                          # dataset name to be trained with (camvid, cityscapes, ade20k)
-  ROOT          : 'data/CityScapes'                                   # dataset root path
+  ROOT          : '../dataset/IDD_Segmentation'                                   # dataset root path
   IGNORE_LABEL  : 255
 
 TRAIN:
-  IMAGE_SIZE    : [512, 512]    # training image size in (h, w)
-  BATCH_SIZE    : 2               # batch size used to train
-  EPOCHS        : 100             # number of epochs to train
+  IMAGE_SIZE    : [1024, 1024]     # training image size in (h, w)
+  BATCH_SIZE    : 8               # batch size used to train
+  EPOCHS        : 500             # number of epochs to train
   EVAL_INTERVAL : 20              # evaluation interval during training
   AMP           : false           # use AMP in training
   DDP           : false           # use DDP training
@@ -36,7 +36,7 @@ SCHEDULER:
   
 
 EVAL:
-  MODEL_PATH    : 'checkpoints/pretrained/ddrnet/ddrnet_23slim_city.pth'     # trained model file path
+  MODEL_PATH    : 'checkpoints/pretrained/segformer/segformer.b3.ade.pth'     # trained model file path
   IMAGE_SIZE    : [1024, 1024]                            # evaluation image size in (h, w)                       
   MSF: 
     ENABLE      : false                                   # multi-scale and flip evaluation  
@@ -45,7 +45,7 @@ EVAL:
 
 
 TEST:
-  MODEL_PATH    : 'checkpoints/pretrained/ddrnet/ddrnet_23slim_city.pth'    # trained model file path
+  MODEL_PATH    : 'checkpoints/pretrained/segformer/segformer.b3.ade.pth'    # trained model file path
   FILE          : 'assests/cityscapes'                    # filename or foldername 
-  IMAGE_SIZE    : [1024, 1024]                            # inference image size in (h, w)
+  IMAGE_SIZE    : [1080, 1920]                            # inference image size in (h, w)
   OVERLAY       : true                                    # save the overlay result (image_alpha+label_alpha)
